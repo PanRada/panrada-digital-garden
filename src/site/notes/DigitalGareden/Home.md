@@ -4,7 +4,7 @@
 
 <body style="background-color: #1e1e1e; color: #d4d4d4; font-family: 'Courier New', monospace; line-height: 1.6; padding: 20px; max-width: 800px; margin: 0 auto;">
 		<div style="display: flex; align-items: center; margin-bottom: 20px;">
-				<img src="profil.png" alt="Sebastian Antolik @PanRada" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-right: 20px; border: 3px solid #569cd6;">
+				<img src="image/profil.png" alt="Sebastian Antolik @PanRada" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-right: 20px; border: 3px solid #569cd6;">
 				<h1 style="color: #569cd6; border-bottom: 1px solid #569cd6; padding-bottom: 10px;">Sebastian Antolik @PanRada</h1>
 		</div>
 		<p>Passionate Code Artisan and Tech Innovator - Crafting the Future of Mobile and AI.</p>
