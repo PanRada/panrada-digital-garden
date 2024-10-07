@@ -30,4 +30,4 @@
     </nav>
 	</body>
 
-[<img style="float:left" src="https://user-images.githubusercontent.com/14358394/115450238-f39e8100-a21b-11eb-89d0-fa4b82cdbce8.png" width="200">](https://www.buymeacoffee.com/panrada)
+[<img style="float:right" src="https://user-images.githubusercontent.com/14358394/115450238-f39e8100-a21b-11eb-89d0-fa4b82cdbce8.png" width="200">](https://www.buymeacoffee.com/panrada)
