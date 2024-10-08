@@ -1,5 +1,5 @@
 ---
-{"dg-home":true,"dg-publish":true,"dg-hide-in-graph: true":true,"permalink":"/digital-gareden/home/","tags":["gardenEntry"],"dgPassFrontmatter":true,"created":"2024-10-05T21:27:21.074+02:00","updated":"2024-10-08T09:11:21.435+02:00"}
+{"dg-home":true,"dg-publish":true,"dg-hide-in-graph: true":true,"permalink":"/digital-gareden/home/","tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":""}
 ---
 
 <body style="background-color: #1e1e1e; color: #d4d4d4; font-family: 'Courier New', monospace; line-height: 1.6; padding: 20px; max-width: 800px; margin: 0 auto;">
@@ -29,5 +29,6 @@
         </ul>
     </nav>
 	</body>
+	
 
 [<img style="float:right" src="https://user-images.githubusercontent.com/14358394/115450238-f39e8100-a21b-11eb-89d0-fa4b82cdbce8.png" width="200">](https://www.buymeacoffee.com/panrada)
