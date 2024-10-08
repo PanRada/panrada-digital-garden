@@ -1,5 +1,5 @@
 ---
-{"dg-home":true,"dg-publish":true,"dg-hide-in-graph: true":true,"permalink":"/digital-gareden/home/","tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":""}
+{"dg-home":true,"dg-publish":true,"dg-hide-in-graph: true":true,"permalink":"/digital-gareden/home/","tags":["gardenEntry"],"dgPassFrontmatter":true,"created":"2024-10-05T21:27:21.074+02:00","updated":"2024-10-07T22:07:19.005+02:00"}
 ---
 
 <body style="background-color: #1e1e1e; color: #d4d4d4; font-family: 'Courier New', monospace; line-height: 1.6; padding: 20px; max-width: 800px; margin: 0 auto;">
