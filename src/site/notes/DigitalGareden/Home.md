@@ -1,5 +1,5 @@
 ---
-{"dg-home":true,"dg-publish":true,"dg-hide-in-graph: true":true,"permalink":"/digital-gareden/home/","tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":""}
+{"dg-publish":true,"permalink":"/digital-gareden/home/","tags":["gardenEntry"],"noteIcon":""}
 ---
 
 <body style="background-color: #1e1e1e; color: #d4d4d4; font-family: 'Courier New', monospace; line-height: 1.6; padding: 20px; max-width: 800px; margin: 0 auto;">
@@ -25,7 +25,7 @@
             <li style="margin: 5px;"><a href="" style="color: #d4d4d4; text-decoration: none; padding: 5px 10px; border-radius: 3px; transition: background-color 0.3s, color 0.3s;">What I'm doing</a></li>
             <li style="margin: 5px;"><a href="" style="color: #d4d4d4; text-decoration: none; padding: 5px 10px; border-radius: 3px; transition: background-color 0.3s, color 0.3s;">Notes</a></li>
             <li style="margin: 5px;"><a href="" style="color: #d4d4d4; text-decoration: none; padding: 5px 10px; border-radius: 3px; transition: background-color 0.3s, color 0.3s;">Inspiration</a></li>
-            <li style="margin: 5px;"><a href="Contact" style="color: #d4d4d4; text-decoration: none; padding: 5px 10px; border-radius: 3px; transition: background-color 0.3s, color 0.3s;">Contact</a></li>
+            <li style="margin: 5px;"><a href="https://panrada-digital-garden.vercel.app/digital-gareden/contact/" style="color: #d4d4d4; text-decoration: none; padding: 5px 10px; border-radius: 3px; transition: background-color 0.3s, color 0.3s;">Contact</a></li>
         </ul>
     </nav>
 	</body>
