@@ -23,8 +23,8 @@
         <ul style="list-style-type: none; padding: 0; display: flex; justify-content: space-around; flex-wrap: wrap;">
             <li style="margin: 5px;"><a href="" style="color: #d4d4d4; text-decoration: none; padding: 5px 10px; border-radius: 3px; transition: background-color 0.3s, color 0.3s;">Projects</a></li>
             <li style="margin: 5px;"><a href="" style="color: #d4d4d4; text-decoration: none; padding: 5px 10px; border-radius: 3px; transition: background-color 0.3s, color 0.3s;">What I'm doing</a></li>
-            <li style="margin: 5px;"><a href="" style="color: #d4d4d4; text-decoration: none; padding: 5px 10px; border-radius: 3px; transition: background-color 0.3s, color 0.3s;">Notes</a></li>
-            <li style="margin: 5px;"><a href="" style="color: #d4d4d4; text-decoration: none; padding: 5px 10px; border-radius: 3px; transition: background-color 0.3s, color 0.3s;">Inspiration</a></li>
+            <li style="margin: 5px;"><a href="https://panrada-digital-garden.vercel.app/digital-gareden/notes/index" style="color: #d4d4d4; text-decoration: none; padding: 5px 10px; border-radius: 3px; transition: background-color 0.3s, color 0.3s;">Notes</a></li>
+            <li style="margin: 5px;"><a href="https://panrada-digital-garden.vercel.app/digital-gareden/inspiration/index" style="color: #d4d4d4; text-decoration: none; padding: 5px 10px; border-radius: 3px; transition: background-color 0.3s, color 0.3s;">Inspiration</a></li>
             <li style="margin: 5px;"><a href="https://panrada-digital-garden.vercel.app/digital-gareden/contact/" style="color: #d4d4d4; text-decoration: none; padding: 5px 10px; border-radius: 3px; transition: background-color 0.3s, color 0.3s;">Contact</a></li>
         </ul>
     </nav>
