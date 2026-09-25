@@ -9,12 +9,13 @@ Strona działała. Domena opłacona, certyfikat ważny, wszystko się ładowało
 Ten ogród to prosta automatyzacja: piszę notatkę w Obsidianie, plugin wysyła ją na GitHuba, a hosting buduje z niej stronę. Kiedy po przerwie chciałem do niego wrócić, okazało się, że po drodze zepsuły się trzy rzeczy:
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"primaryColor": "#dfdfdf", "primaryBorderColor": "#cdcecf", "primaryTextColor": "#252525", "lineColor": "#5f5f5f", "edgeLabelBackground": "#e6e6e6", "tertiaryColor": "#e6e6e6"}}}%%
 flowchart LR
     A["Notatka"] -. "stary vault" .-> B["Plugin"]
     B -- "token nieważny" --> C["GitHub"]
     C --> D["Build"]
     D -- "Node: 6 dni do wyłączenia" --> E["Strona ✅"]
-    linkStyle 0,1,3 stroke:#e5534b,stroke-width:2px
+    linkStyle 0,1,3 stroke:#b3261e,stroke-width:2px
 ```
 
 *Czerwone połączenia zepsuły się bez żadnego komunikatu. Strona na końcu przez cały czas wyglądała dobrze.*
