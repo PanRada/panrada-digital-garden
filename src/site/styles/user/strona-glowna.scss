@@ -1,0 +1,5 @@
+// Strona główna zaczyna się od zdjęcia: ukryj automatyczny nagłówek z tytułem notatki.
+// Klasę dodaje frontmatter `dg-content-classes: strona-glowna` w notatce Home.
+main.content.strona-glowna > header > h1 {
+  display: none;
+}
