@@ -1,0 +1,10 @@
+{
+  "plugins": {
+    "dg-timestamps": {
+      "settings": {
+        "dateFormat": "dd.MM.yyyy",
+        "timestampFormat": "dd.MM.yyyy HH:mm"
+      }
+    }
+  }
+}

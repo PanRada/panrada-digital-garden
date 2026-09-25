@@ -1,0 +1,6 @@
+// Diagramy mermaid na ciemnej stronie: szablon daje im białe tło, które odcina się od motywu.
+// Motyw w trybie ciemnym odwraca kolory SVG (filter: invert), więc paletę diagramu ustawia
+// dyrektywa %%{init}%% w notatce z odwróconymi kolorami (kanon /ogrod).
+.markdown-preview-view pre.mermaid {
+  background: transparent;
+}
