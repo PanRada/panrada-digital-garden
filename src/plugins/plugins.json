@@ -1,6 +1,7 @@
 {
   "plugins": {
     "dg-timestamps": {
+      "enabled": false,
       "settings": {
         "dateFormat": "dd.MM.yyyy",
         "timestampFormat": "dd.MM.yyyy HH:mm"

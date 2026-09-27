@@ -3,3 +3,40 @@
 main.content.strona-glowna > header > h1 {
   display: none;
 }
+
+// Motyw „Arkusz”: zdjęcie jest naklejką przyklejoną w rogu arkusza,
+// a akapit powitalny obok niej idzie większym stopniem.
+main.content.strona-glowna > p:first-of-type:has(> img) {
+  float: right;
+  margin: 4px -6px 12px 32px;
+}
+
+main.content.strona-glowna > p:first-of-type > img {
+  width: 184px;
+  margin: 0;
+  transform: rotate(-4deg);
+}
+
+main.content.strona-glowna > p:first-of-type + p {
+  font-size: 21px;
+  line-height: 1.55;
+  margin-bottom: 1.2em;
+}
+
+main.content.strona-glowna > h2:first-of-type {
+  clear: both;
+}
+
+@media (max-width: 600px) {
+  main.content.strona-glowna > p:first-of-type:has(> img) {
+    margin: 0 -4px 8px 18px;
+  }
+
+  main.content.strona-glowna > p:first-of-type > img {
+    width: 120px;
+  }
+
+  main.content.strona-glowna > p:first-of-type + p {
+    font-size: 19px;
+  }
+}

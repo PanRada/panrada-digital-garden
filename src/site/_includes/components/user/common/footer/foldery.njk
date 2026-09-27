@@ -1,0 +1,19 @@
+{#- Foldery w spisie notatek startują zwinięte, a szablon od razu zapisuje ten stan
+    w localStorage. Przez to gość nie widział notatek schowanych w „Notatki”.
+    Skrypt raz otwiera każdy folder (także dodany później), a potem szanuje wybór gościa:
+    zwinięty folder zostaje zwinięty. Działa przed startem Alpine.js, który szablon ładuje z `defer`. -#}
+<script>
+  (function () {
+    try {
+      document.querySelectorAll(".filetree-sidebar .folder[x-data]").forEach(function (folder) {
+        var dopasowanie = /\.as\(("(?:[^"\\]|\\.)*")\)/.exec(folder.getAttribute("x-data") || "");
+        if (!dopasowanie) return;
+        var klucz = JSON.parse(dopasowanie[1]);
+        if (localStorage.getItem("pk-otwarty:" + klucz) === null) {
+          localStorage.setItem(klucz, "true");
+          localStorage.setItem("pk-otwarty:" + klucz, "1");
+        }
+      });
+    } catch (e) {}
+  })();
+</script>

@@ -1,0 +1,11 @@
+{#- Fonty motywu „Arkusz” (styles/user/arkusz.scss): Hubot Sans na nagłówki i interfejs,
+    Literata na tekst, JetBrains Mono na kod. Pliki idą z jsDelivr, z którego strona i tak
+    ładuje skrypty. Przeglądarka pobiera tylko potrzebne podzbiory znaków (łaciński i łaciński
+    rozszerzony dla polskich liter). Tekst notatki dostaje preload, żeby nie przeskakiwał. -#}
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource-variable/literata@5.3.0/files/literata-latin-wght-normal.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource-variable/literata@5.3.0/files/literata-latin-ext-wght-normal.woff2">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/hubot-sans@5.3.0/wdth.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/literata@5.3.0/wght.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/literata@5.3.0/wght-italic.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/jetbrains-mono@5.3.0/wght.css">

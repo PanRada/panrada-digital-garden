@@ -1,0 +1,782 @@
+// Motyw „Arkusz”: każda notatka to arkusz z bloku inżynierskiego.
+// Papier, tusz, jeden niebieski do linków i tabliczka rysunkowa pod tytułem
+// (components/user/notes/header/tabliczka.njk). Fonty ładuje
+// components/user/common/head/fonty.njk.
+//
+// Plik nadpisuje zmienne Obsidiana i szablonu, więc działa niezależnie od motywu
+// wybranego w pluginie (dziś Notation 2) i od trybu jasny/ciemny w jego ustawieniach.
+// Pliki w styles/user/ ładują się jako ostatnie i przetrwają aktualizację szablonu.
+
+// ---------------------------------------------------------------------------
+// Paleta, kroje i zmienne
+// ---------------------------------------------------------------------------
+
+html {
+  background: #f5f6f2;
+  color-scheme: light;
+}
+
+body.theme-dark,
+body.theme-light {
+  --pk-papier: #f5f6f2;
+  --pk-papier-2: #eceee8;
+  --pk-tusz: #17202e;
+  --pk-grafit: #5b6472;
+  --pk-linia: #c9cfd6;
+  --pk-niebieski: #2446b8;
+  --pk-niebieski-ciemny: #1a3591;
+  --pk-zakreslacz: rgba(255, 214, 51, 0.55);
+  --pk-pod-kursorem: rgba(23, 32, 46, 0.05);
+
+  --pk-tech: "Hubot Sans Variable", "Hubot Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --pk-tekst: "Literata Variable", "Literata", Georgia, "Times New Roman", serif;
+  --pk-kod: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  // Obsidian (motyw i szablon)
+  --background-primary: var(--pk-papier);
+  --background-primary-alt: var(--pk-papier-2);
+  --background-secondary: var(--pk-papier);
+  --background-secondary-alt: var(--pk-papier-2);
+  --background-modifier-border: var(--pk-linia);
+  --background-modifier-border-hover: var(--pk-tusz);
+  --background-modifier-border-focus: var(--pk-niebieski);
+  --background-modifier-form-field: var(--pk-papier);
+  --background-modifier-form-field-highlighted: var(--pk-papier);
+  --background-modifier-hover: var(--pk-pod-kursorem);
+  --text-normal: var(--pk-tusz);
+  --text-muted: var(--pk-grafit);
+  --text-faint: var(--pk-grafit);
+  --text-accent: var(--pk-niebieski);
+  --text-accent-hover: var(--pk-niebieski-ciemny);
+  --text-highlight-bg: var(--pk-zakreslacz);
+  --text-selection: rgba(36, 70, 184, 0.18);
+  --interactive-accent: var(--pk-niebieski);
+  --interactive-accent-hover: var(--pk-niebieski-ciemny);
+  --link-color: var(--pk-niebieski);
+  --link-color-hover: var(--pk-niebieski-ciemny);
+  --link-external-color: var(--pk-niebieski);
+  --link-external-color-hover: var(--pk-niebieski-ciemny);
+  --link-unresolved-color: var(--pk-grafit);
+  --font-text-theme: var(--pk-tekst);
+  --font-text: var(--pk-tekst);
+  --font-interface-theme: var(--pk-tech);
+  --font-interface: var(--pk-tech);
+  --font-monospace-theme: var(--pk-kod);
+  --font-monospace: var(--pk-kod);
+  --font-default: var(--pk-tekst);
+  --code-background: var(--pk-papier-2);
+  --code-normal: var(--pk-tusz);
+  --hr-color: var(--pk-tusz);
+  --blockquote-border-color: var(--pk-tusz);
+  --tag-background: transparent;
+  --tag-color: var(--pk-grafit);
+  --radius-s: 0;
+  --radius-m: 0;
+  --radius-l: 0;
+  --radius-xl: 0;
+  --h1-color: var(--pk-tusz);
+  --h2-color: var(--pk-tusz);
+  --h3-color: var(--pk-tusz);
+  --h4-color: var(--pk-tusz);
+  --h5-color: var(--pk-tusz);
+  --h6-color: var(--pk-tusz);
+
+  // Szablon Digital Garden
+  --dg-content-max-width: 680px;
+  --dg-content-padding-top: 76px;
+  --dg-content-font-size: 18px;
+  --dg-content-line-height: 1.65;
+  --dg-filetree-title-size: 28px;
+  --dg-notelink-size: 15px;
+  --dg-notelink-padding: 7px 8px 7px 12px;
+  --dg-notelink-hover-bg: var(--pk-pod-kursorem);
+  --dg-search-btn-radius: 0;
+  --dg-search-btn-height: 36px;
+  --dg-search-btn-font-size: 14px;
+  --dg-search-box-radius: 0;
+  --dg-search-input-radius: 0;
+  --dg-search-result-radius: 0;
+  --dg-search-highlight-bg: var(--pk-zakreslacz);
+  --dg-search-divider-color: var(--pk-linia);
+  --dg-overlay-bg: rgba(23, 32, 46, 0.35);
+  --dg-mermaid-radius: 0;
+  --dg-graph-border-radius: 0;
+  --dg-toc-font-size: 14px;
+  --dg-toc-item-padding: 5px 0;
+
+  background: var(--pk-papier);
+  color: var(--pk-tusz);
+  font-family: var(--pk-tekst);
+
+  @media (max-width: 800px) {
+    --file-margins: 20px;
+  }
+}
+
+body ::selection {
+  background: rgba(36, 70, 184, 0.18);
+}
+
+body :focus-visible {
+  outline: 2px solid var(--pk-niebieski);
+  outline-offset: 2px;
+}
+
+// ---------------------------------------------------------------------------
+// Tekst notatki
+// ---------------------------------------------------------------------------
+
+body .content {
+  font-family: var(--pk-tekst);
+  font-size: var(--dg-content-font-size);
+  line-height: var(--dg-content-line-height);
+  color: var(--pk-tusz);
+  font-kerning: normal;
+}
+
+body .content p {
+  margin: 0 0 1em;
+  text-wrap: pretty;
+}
+
+body .content :is(strong, b) {
+  font-weight: 650;
+  color: var(--pk-tusz);
+}
+
+// Tytuł notatki: wąski, ciężki krój techniczny, jak napis na arkuszu.
+body .content > header > h1,
+body .content h1 {
+  font-family: var(--pk-tech);
+  font-size: clamp(34px, 4.6vw, 48px);
+  font-weight: 800;
+  font-stretch: 80%;
+  font-style: normal;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--pk-tusz);
+  margin: 0 0 0.5em;
+  text-wrap: balance;
+}
+
+body .content > header > h1 {
+  margin: 0;
+}
+
+body .content :is(h2, h3, h4, h5, h6) {
+  font-family: var(--pk-tech);
+  font-style: normal;
+  color: var(--pk-tusz);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+body .content h2 {
+  font-size: 27px;
+  font-weight: 760;
+  font-stretch: 84%;
+  line-height: 1.15;
+  margin: 2em 0 0.55em;
+}
+
+body .content h3 {
+  font-size: 21px;
+  font-weight: 720;
+  font-stretch: 88%;
+  line-height: 1.25;
+  margin: 1.7em 0 0.45em;
+}
+
+body .content h4 {
+  font-size: 18px;
+  font-weight: 700;
+  font-stretch: 92%;
+  line-height: 1.3;
+  margin: 1.5em 0 0.4em;
+}
+
+body .content :is(h5, h6) {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--pk-grafit);
+  margin: 1.4em 0 0.4em;
+}
+
+// Ikony notatek (tytuł, drzewo plików, linki): stan pokazuje tabliczka.
+body.title-note-icon .cm-s-obsidian > header > h1[data-note-icon]::before,
+body.filetree-note-icon .filename[data-note-icon]::before,
+body.links-note-icon .internal-link[data-note-icon]::before,
+body.backlinks-note-icon .backlink[data-note-icon]::before {
+  display: none;
+}
+
+// Listy: półpauza, jak w polskim składzie; numery krojem technicznym.
+body .content ul {
+  list-style-type: "–  ";
+  padding-inline-start: 1.3em;
+  margin: 0 0 1em;
+}
+
+body .content ol {
+  padding-inline-start: 1.6em;
+  margin: 0 0 1em;
+}
+
+body .content li {
+  margin: 0.3em 0;
+  padding: 0 0 0 0.1em;
+}
+
+body .content ul > li::marker {
+  color: var(--pk-grafit);
+}
+
+body .content ol > li::marker {
+  font-family: var(--pk-tech);
+  font-weight: 700;
+  color: var(--pk-tusz);
+}
+
+body .content :is(ul, ol) :is(ul, ol) {
+  margin: 0.3em 0;
+}
+
+// Linki
+body .content a:not(.tag) {
+  color: var(--pk-niebieski);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  text-decoration-color: rgba(36, 70, 184, 0.45);
+}
+
+body .content a:not(.tag):hover {
+  color: var(--pk-niebieski-ciemny);
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 2px;
+}
+
+body .content a.external-link {
+  background-image: none;
+  padding-right: 0;
+}
+
+body .content a.external-link::after {
+  content: "↗";
+  display: inline-block;
+  margin-left: 0.15em;
+  font-family: var(--pk-tech);
+  font-size: 0.7em;
+  font-weight: 700;
+  vertical-align: 0.4em;
+  text-decoration: none;
+}
+
+// Cytat
+body .content blockquote {
+  margin: 1.6em 0;
+  padding: 0.1em 0 0.1em 1.2em;
+  border-left: 3px solid var(--pk-tusz);
+  background: none;
+  color: var(--pk-tusz);
+  font-style: italic;
+  quotes: none;
+}
+
+body .content blockquote::before {
+  content: none;
+}
+
+body .content blockquote p {
+  display: block;
+}
+
+body .content blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+// Zakreślenie ==tekst== i linia pozioma
+body .content mark {
+  background: var(--pk-zakreslacz);
+  color: inherit;
+  padding: 0 0.12em;
+}
+
+body .content hr {
+  border: 0;
+  border-top: 1px solid var(--pk-tusz);
+  margin: 2.5em 0;
+}
+
+// Obrazki i podpis: kursywa w akapicie tuż pod obrazkiem
+body .content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.6em 0 0.4em;
+}
+
+body .content p:has(> img) {
+  margin: 0;
+}
+
+body .content p:has(> img) + p > em:only-child {
+  display: block;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--pk-grafit);
+  margin-bottom: 1.6em;
+}
+
+// Kod
+body .content :not(pre) > code {
+  font-family: var(--pk-kod);
+  font-size: 0.84em;
+  color: var(--pk-tusz);
+  background: var(--pk-papier-2);
+  border: 1px solid var(--pk-linia);
+  border-radius: 0;
+  padding: 0.06em 0.32em;
+}
+
+body .content pre,
+body .content pre[class*="language-"] {
+  font-family: var(--pk-kod);
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--pk-tusz);
+  background: var(--pk-papier-2);
+  border: 1px solid var(--pk-linia);
+  border-left: 3px solid var(--pk-tusz);
+  border-radius: 0;
+  padding: 14px 18px;
+  margin: 1.5em 0;
+  overflow-x: auto;
+  text-shadow: none;
+}
+
+body .content pre code,
+body .content code[class*="language-"] {
+  font-family: var(--pk-kod);
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  text-shadow: none;
+}
+
+body .content .token {
+  &.comment, &.prolog, &.doctype, &.cdata { color: #687180; font-style: italic; }
+  &.punctuation, &.operator, &.entity, &.url { color: #4b5563; background: none; }
+  &.keyword, &.atrule, &.selector, &.important { color: var(--pk-niebieski); }
+  &.string, &.char, &.attr-value, &.inserted, &.regex { color: #2e6b34; }
+  &.number, &.boolean, &.constant, &.symbol { color: #9a4a00; }
+  &.function, &.class-name { color: var(--pk-tusz); font-weight: 600; }
+  &.tag, &.property, &.attr-name, &.deleted { color: #a3302a; }
+  &.variable, &.builtin { color: var(--pk-tusz); }
+}
+
+body .content pre.mermaid {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+}
+
+// Tabele
+body .content table {
+  border-collapse: collapse;
+  font-size: 0.92em;
+  margin: 1.5em 0;
+}
+
+body .content :is(th, td) {
+  border: 1px solid var(--pk-linia);
+  padding: 0.45em 0.7em;
+  text-align: left;
+  vertical-align: top;
+}
+
+body .content th {
+  font-family: var(--pk-tech);
+  font-weight: 700;
+  font-stretch: 90%;
+  background: var(--pk-papier-2);
+}
+
+// Callouty
+body .content .callout {
+  border-radius: 0;
+  border: 1px solid var(--pk-linia);
+  border-left: 3px solid rgb(var(--callout-color));
+  background: var(--pk-papier-2);
+  mix-blend-mode: normal;
+  padding: 12px 16px;
+}
+
+body .content .callout-title {
+  font-family: var(--pk-tech);
+  font-weight: 700;
+}
+
+// Tagi
+body .content a.tag,
+body .header-tags .tag {
+  font-family: var(--pk-tech);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pk-grafit);
+  background: none;
+  border: 1px solid var(--pk-linia);
+  border-radius: 0;
+  padding: 1px 7px;
+  text-decoration: none;
+}
+
+// ---------------------------------------------------------------------------
+// Tabliczka rysunkowa pod tytułem
+// ---------------------------------------------------------------------------
+
+// Siatkę rysuje tło: pola mają kolor papieru, a 1 px przerwy między nimi to tusz.
+body .tabliczka {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 1px;
+  margin: 22px 0 40px;
+  padding: 0;
+  background: var(--pk-tusz);
+  border: 1.5px solid var(--pk-tusz);
+  font-family: var(--pk-tech);
+}
+
+body .tabliczka .pole {
+  min-width: 0;
+  padding: 8px 12px 9px;
+  background: var(--pk-papier);
+}
+
+body .tabliczka dt {
+  margin: 0 0 3px;
+  font-size: 12px;
+  font-weight: 450;
+  line-height: 1.2;
+  color: var(--pk-grafit);
+}
+
+body .tabliczka dd {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 650;
+  font-stretch: 90%;
+  line-height: 1.25;
+  color: var(--pk-tusz);
+}
+
+// Etap wzrostu notatki: szkic, kiełek, dojrzała
+body .tabliczka .etapy {
+  display: inline-flex;
+  gap: 3px;
+
+  i {
+    width: 8px;
+    height: 8px;
+    box-sizing: border-box;
+    border: 1.5px solid var(--pk-niebieski);
+  }
+
+  i.pelny {
+    background: var(--pk-niebieski);
+  }
+}
+
+@media (max-width: 560px) {
+  body .tabliczka {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body .tabliczka .pole:last-child:nth-child(odd) {
+    grid-column: span 2;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Lewy panel: nazwa ogrodu, wyszukiwarka, spis notatek
+// ---------------------------------------------------------------------------
+
+body .filetree-wrapper {
+  background: var(--pk-papier);
+  border-right: 1px solid var(--pk-tusz);
+}
+
+body .filetree-sidebar {
+  padding: 30px 22px 20px 24px;
+  color: var(--pk-grafit);
+  font-family: var(--pk-tech);
+}
+
+body .filetree-sidebar > a {
+  display: block;
+  text-align: left !important;
+}
+
+body .filetree-sidebar h1 {
+  font-family: var(--pk-tech);
+  font-size: var(--dg-filetree-title-size) !important;
+  font-weight: 800;
+  font-stretch: 80%;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--pk-tusz);
+  text-align: left !important;
+  margin: 0 0 22px;
+}
+
+body .search-button {
+  border: 1px solid var(--pk-tusz);
+  border-radius: 0;
+  background: var(--pk-papier);
+  color: var(--pk-grafit);
+  font-family: var(--pk-tech);
+  font-weight: 500;
+
+  &:hover {
+    border-color: var(--pk-tusz);
+    background: var(--pk-papier-2);
+    color: var(--pk-tusz);
+  }
+
+  .search-keys {
+    padding: 0;
+    border-radius: 0;
+    background: none;
+    color: var(--pk-grafit);
+    font-size: 12px;
+  }
+
+  .search-keys code {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font-family: var(--pk-tech);
+    font-size: 12px;
+    font-weight: 600;
+  }
+}
+
+body .filetree-sidebar .search-button {
+  margin: 0 0 22px;
+}
+
+body .foldername-wrapper {
+  font-family: var(--pk-tech);
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--pk-grafit);
+}
+
+body .notelink {
+  font-family: var(--pk-tech);
+  line-height: 1.3;
+
+  .filename {
+    color: var(--pk-grafit);
+  }
+
+  &:hover .filename {
+    color: var(--pk-tusz);
+  }
+}
+
+body .notelink.active-note {
+  border-left-color: var(--pk-niebieski);
+
+  .filename {
+    color: var(--pk-tusz) !important;
+    font-weight: 700;
+  }
+}
+
+body .filelist {
+  border-left-color: var(--pk-linia);
+}
+
+// Pasek u góry na telefonie i tablecie
+body .navbar {
+  background: var(--pk-papier);
+  border-bottom: 1px solid var(--pk-tusz);
+  color: var(--pk-tusz);
+
+  h1 {
+    font-family: var(--pk-tech);
+    font-size: 22px !important;
+    font-weight: 800;
+    font-stretch: 80%;
+    letter-spacing: -0.02em;
+    color: var(--pk-tusz);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Prawy panel: spis treści
+// ---------------------------------------------------------------------------
+
+// Nazwa notatki nad spisem powtarzała tytuł, więc spis zostaje bez nagłówka.
+body .sidebar .toc-title-container {
+  display: none;
+}
+
+// Klasę .toc ma i kontener szablonu, i lista wtyczki w środku; linia tylko na kontenerze.
+body .sidebar div.toc {
+  padding: 2px 0 2px 16px;
+  border-left: 1px solid var(--pk-tusz);
+}
+
+body .sidebar nav.toc {
+  padding: 0;
+  border: 0;
+}
+
+body .sidebar .toc-container {
+  font-family: var(--pk-tech);
+
+  li a {
+    color: var(--pk-grafit);
+    font-weight: 500;
+    line-height: 1.35;
+
+    &:hover {
+      color: var(--pk-tusz);
+    }
+
+    &.toc-active {
+      color: var(--pk-niebieski);
+      font-weight: 700;
+    }
+  }
+}
+
+body .backlinks .backlink-title {
+  font-family: var(--pk-tech);
+  font-weight: 650;
+  color: var(--pk-grafit);
+}
+
+// Panel strony jako arkusz wysuwany od dołu (ekrany do 1400 px)
+@media (max-width: 1400px) {
+  body .sidebar {
+    border-top: 1.5px solid var(--pk-tusz);
+    border-radius: 0;
+    background: var(--pk-papier);
+    box-shadow: none;
+  }
+
+  body .page-panel-handle {
+    border-radius: 0;
+    background: var(--pk-linia);
+  }
+
+  body .page-panel-close {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    color: var(--pk-tusz);
+  }
+
+  body .page-panel-toggle {
+    border: 1px solid var(--pk-tusz);
+    border-radius: 0;
+    background: var(--pk-papier);
+    box-shadow: none;
+    color: var(--pk-tusz);
+  }
+
+  body .page-panel-toggle.page-panel-fab {
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Wyszukiwarka i podgląd linków
+// ---------------------------------------------------------------------------
+
+body .search-box {
+  background: var(--pk-papier);
+  border: 1.5px solid var(--pk-tusz);
+  border-radius: 0;
+  box-shadow: none;
+  font-family: var(--pk-tech);
+
+  input,
+  input:focus {
+    background: var(--pk-papier);
+    border: 1px solid var(--pk-tusz);
+    border-radius: 0;
+    box-shadow: none;
+    color: var(--pk-tusz);
+    font-family: var(--pk-tech);
+  }
+
+  input:focus {
+    border-color: var(--pk-niebieski);
+    outline: 1px solid var(--pk-niebieski);
+    outline-offset: 0;
+  }
+}
+
+body .search-box-footer code {
+  padding: 0 5px;
+  border: 1px solid var(--pk-linia);
+  border-radius: 0;
+  background: var(--pk-papier-2);
+  color: var(--pk-grafit);
+  font-family: var(--pk-tech);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+body .searchresult {
+  border-radius: 0;
+}
+
+body .search-box :is(.result-title, .search-link) {
+  font-family: var(--pk-tech);
+  font-weight: 650;
+  color: var(--pk-tusz);
+}
+
+body .search-box :is(.result-excerpt, .preview-content) {
+  font-family: var(--pk-tekst);
+}
+
+// Podglądy notatek (wyszukiwarka, dymek linku) leżą poza .content.
+body :is(.preview-content, #tooltip-content) :is(h1, h2, h3, h4) {
+  font-family: var(--pk-tech);
+  font-stretch: 85%;
+  letter-spacing: -0.01em;
+  color: var(--pk-tusz);
+}
+
+body .search-box kbd,
+body .search-box-footer code {
+  border-radius: 0;
+  font-family: var(--pk-tech);
+}
+
+body #tooltip-wrapper {
+  background: var(--pk-papier);
+  border: 1px solid var(--pk-tusz);
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--pk-tusz);
+  font-family: var(--pk-tekst);
+}
