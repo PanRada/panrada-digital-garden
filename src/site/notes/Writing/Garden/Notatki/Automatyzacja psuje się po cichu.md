@@ -2,7 +2,7 @@
 {"dg-publish":true,"dg-path":"Notatki/Automatyzacja psuje się po cichu.md","permalink":"/notatki/automatyzacja-psuje-sie-po-cichu/","noteIcon":"","created":"2026-09-25","updated":"2026-09-25","dg-note-properties":{"status":"kiełek","created":"2026-09-25","updated":"2026-09-25","zrodla":["[[Development/PanRada/_index]]"],"medium":"https://medium.com/@PanRada/automatyzacja-psuje-si%C4%99-po-cichu-a4a2c1b29862"}}
 ---
 
-Strona działała. Domena opłacona, certyfikat ważny, wszystko się ładowało. Tylko że od prawie dwóch lat nic się na niej nie pojawiło — i długo nie wiedziałem dlaczego.
+Strona działała. Domena opłacona, certyfikat ważny, wszystko się ładowało. Tylko że od prawie dwóch lat nic się na niej nie pojawiło. I długo nie wiedziałem dlaczego.
 
 ## Co się stało
 
@@ -32,7 +32,7 @@ Automatyzacje psują się inaczej niż aplikacje. Aplikacja, która nie działa,
 
 Zanim uznasz automatyzację za skończoną, zadaj jej trzy pytania:
 
-1. **Kiedy wygasa?** Tokeny, certyfikaty, wersje runtime'u na hostingu — wszystko ma datę ważności, nawet jeśli nikt jej nie zapisał.
+1. **Kiedy wygasa?** Tokeny, certyfikaty, wersje runtime'u na hostingu. Wszystko ma datę ważności, nawet jeśli nikt jej nie zapisał.
 2. **Kto jej używa i jak często?** Automatyzacja bez rytmu użycia to automatyzacja bez monitoringu.
 3. **Skąd się dowiem, że przestała działać?** Jeśli odpowiedź brzmi „zobaczę przy okazji”, to znaczy, że nie ma odpowiedzi.
 
