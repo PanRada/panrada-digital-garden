@@ -10,7 +10,7 @@ module.exports = {
     });
 
     // mathjax-full 3.2.2 throws on characters outside its operator
-    // dictionary (e.g. "€") — a stray $...€...$ span in prose would
+    // dictionary (e.g. "€"). A stray $...€...$ span in prose would
     // otherwise abort the entire build. Fall back to the raw text.
     for (const rule of ["math_inline", "math_block"]) {
       const original = md.renderer.rules[rule];

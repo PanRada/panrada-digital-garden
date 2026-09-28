@@ -45,7 +45,7 @@ function filterLocalGraphData(graphData, depth) {
     // Hidden nodes (home page, index/hub pages like the-shelf or entity-index)
     // are never rendered, but they're linked from a huge number of pages. If we
     // let BFS walk through them as ordinary hops, they silently bridge otherwise
-    // unrelated parts of the graph together — the hidden hop then gets dropped
+    // unrelated parts of the graph together. The hidden hop then gets dropped
     // from the output, leaving nodes that appear with no visible path to the
     // current node. So a hidden node can only ever be a traversal *endpoint*
     // (reached from, never walked through), except the current node itself,
@@ -152,7 +152,7 @@ function renderGraph(graphData, containerId, isFullScreen) {
     }));
     const links = graphData.links.map(l => ({ source: l.source, target: l.target }));
 
-    // D3 Force Simulation — stronger repel for full graph to spread nodes
+    // D3 Force Simulation: stronger repel for full graph to spread nodes
     const chargeStrength = isFullScreen ? -300 : -100;
     const linkDist = isFullScreen ? 80 : 40;
     const radius = Math.min(width, height) / 3;
@@ -239,7 +239,7 @@ function renderGraph(graphData, containerId, isFullScreen) {
         gfx.hitArea = new Circle(0, 0, r + 2);
         gfx._nodeId = n.id;
 
-        // Draw node circle — current node gets main color, others get muted
+        // Draw node circle: current node gets main color, others get muted
         const nodeColor = n.current ? color : mutedColor;
         gfx.beginFill(nodeColor);
         gfx.drawCircle(0, 0, r);

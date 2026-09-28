@@ -13,7 +13,7 @@ try {
 /**
  * Check whether a file's actual content is an image format the sharp-based
  * optimization pipeline can decode, by sniffing magic bytes. Extensions
- * lie — e.g. iPhone HEIC photos renamed to .jpg — and feeding sharp an
+ * lie, e.g. iPhone HEIC photos renamed to .jpg, and feeding sharp an
  * undecodable file fails the whole Eleventy build via an unhandled
  * rejection. Unknown or unreadable files return false so the caller can
  * leave the original <img> untouched.
@@ -56,7 +56,7 @@ function isTransformableImage(filePath) {
 		return true;
 	}
 
-	// AVIF: ISO-BMFF ftyp box with an avif brand — sharp decodes these.
+	// AVIF: ISO-BMFF ftyp box with an avif brand. Sharp decodes these.
 	// Other ftyp brands (heic, heix, mif1…) are HEIC/HEIF: not decodable.
 	if (ascii.slice(4, 8) === "ftyp") {
 		return ascii.slice(8, 12) === "avif";
@@ -65,7 +65,7 @@ function isTransformableImage(filePath) {
 	return false;
 }
 
-// Probe results memoized per file version — decoding is the expensive part
+// Probe results memoized per file version: decoding is the expensive part
 // and the same image is typically referenced from many pages.
 const decodableCache = new Map();
 

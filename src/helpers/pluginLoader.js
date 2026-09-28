@@ -11,7 +11,7 @@
  *     ALL_NOTE_SETTINGS resolution in notes.11tydata.js
  *
  * Contract: a broken plugin (malformed manifest, unsafe path, throwing hook)
- * must never fail the build — every failure is a console.warn + skip.
+ * must never fail the build: every failure is a console.warn + skip.
  * Plugin docs: https://docs.forestry.md/
  */
 
@@ -272,7 +272,7 @@ function loadPlugins({ force = false, root = PLUGINS_ROOT } = {}) {
       .map((entry) => entry.name)
       .sort();
   } catch {
-    // No plugins directory at all — a valid state.
+    // No plugins directory at all: a valid state.
     cache = { plugins: [], errors: [] };
     cacheRoot = root;
     return cache;
@@ -283,7 +283,7 @@ function loadPlugins({ force = false, root = PLUGINS_ROOT } = {}) {
   for (const dirName of dirNames) {
     const manifestPath = path.join(root, dirName, MANIFEST_FILE);
     if (!fs.existsSync(manifestPath)) {
-      // Not a plugin directory (no manifest) — silently ignore.
+      // Not a plugin directory (no manifest): silently ignore.
       continue;
     }
     let manifest;

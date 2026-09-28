@@ -40,7 +40,7 @@ module.exports = {
     });
 
     // The search index needs collections.note, which slot templates don't
-    // get — register it as a virtual template so it joins the data cascade.
+    // get. Register it as a virtual template so it joins the data cascade.
     const indexTemplate = fs.readFileSync(
       path.join(context.pluginDir, "templates", "search-index.njk"),
       "utf8"

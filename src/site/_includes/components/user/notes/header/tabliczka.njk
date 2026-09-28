@@ -1,26 +1,56 @@
 {#- Tabliczka rysunkowa pod tytułem notatki (motyw „Arkusz”, styles/user/arkusz.scss).
-    Autor, daty z `created` / `updated` i stan notatki z jej właściwości (`status`).
-    „Zmieniono” pojawia się dopiero, gdy notatka ma późniejszą wersję niż pierwsza.
+    Autor, daty z `created` / `updated` i dojrzałość notatki z jej właściwości (`status`).
+    „Zaktualizowano” pojawia się dopiero, gdy notatka ma późniejszą wersję niż pierwsza.
+    Pod tabliczką jest rozwijana legenda skali. To zwykłe details/summary, więc działa
+    myszką, klawiaturą i dotykiem bez skryptu.
     Zastępuje wtyczkę dg-timestamps, wyłączoną w src/plugins/plugins.json. -#}
 {%- macro dataPL(wartosc) -%}
   {%- set s = wartosc | string -%}
   {%- if r/^\d{4}-\d{2}-\d{2}/.test(s) -%}{{ s.slice(8, 10) }}.{{ s.slice(5, 7) }}.{{ s.slice(0, 4) }}{%- else -%}{{ s }}{%- endif -%}
 {%- endmacro -%}
+{%- macro kwadraty(etap, liczba) -%}
+<span class="etapy" aria-hidden="true">{% for i in range(1, liczba + 1) %}<i{% if i <= etap %} class="pelny"{% endif %}></i>{% endfor %}</span>
+{%- endmacro -%}
+{#- Skala dojrzałości z kanonu ogrodu. Numer etapu to pozycja na liście:
+    z niej powstają kwadraty, tekst dla czytników ekranu i legenda. -#}
+{%- set skala = [
+  { "nazwa": "szkic", "opis": "Tekst w przygotowaniu, jeszcze nieopublikowany." },
+  { "nazwa": "kiełek", "opis": "Wczesna wersja. Teza może się jeszcze zmienić." },
+  { "nazwa": "dojrzała", "opis": "Wersja dopracowana, zmieniana rzadko." }
+] -%}
 {%- set utworzono = (created | string).slice(0, 10) if created else "" -%}
 {%- set zmieniono = (updated | string).slice(0, 10) if updated else "" -%}
 {%- set stan = noteProps.status if noteProps and noteProps.status else "" -%}
-{%- set etap = { "szkic": 1, "kiełek": 2, "dojrzała": 3 }[stan] -%}
+{%- set etap = 0 -%}
+{%- for e in skala -%}
+  {%- if e.nazwa == stan %}{% set etap = loop.index %}{% endif -%}
+{%- endfor -%}
 {%- if utworzono or stan -%}
+<div class="metryczka">
 <dl class="tabliczka">
   <div class="pole"><dt>Autor</dt><dd>Sebastian Antolik</dd></div>
   {%- if utworzono %}
   <div class="pole"><dt>Utworzono</dt><dd><time datetime="{{ utworzono }}">{{ dataPL(created) }}</time></dd></div>
   {%- endif %}
   {%- if zmieniono and zmieniono != utworzono %}
-  <div class="pole"><dt>Zmieniono</dt><dd><time datetime="{{ zmieniono }}">{{ dataPL(updated) }}</time></dd></div>
+  <div class="pole"><dt>Zaktualizowano</dt><dd><time datetime="{{ zmieniono }}">{{ dataPL(updated) }}</time></dd></div>
   {%- endif %}
   {%- if stan %}
-  <div class="pole"><dt>Stan</dt><dd>{{ stan }}{% if etap %}<span class="etapy" title="etap {{ etap }} z 3: szkic, kiełek, dojrzała" aria-hidden="true">{% for i in range(1, 4) %}<i{% if i <= etap %} class="pelny"{% endif %}></i>{% endfor %}</span>{% endif %}</dd></div>
+  <div class="pole"><dt>Dojrzałość</dt><dd>{% if etap %}<span>{{ stan }}<span class="sr-only">, etap {{ etap }} z {{ skala | length }}</span></span>{{ kwadraty(etap, skala | length) }}{% else %}{{ stan }}{% endif %}</dd></div>
   {%- endif %}
 </dl>
+{%- if etap %}
+<details class="legenda">
+  <summary>Co znaczy „{{ stan }}”?</summary>
+  <div class="legenda-tresc">
+    <p>Teksty na tej stronie rosną z czasem. Dojrzałość pokazuje, na jakim etapie jest dany tekst.</p>
+    <dl class="legenda-skala">
+      {%- for e in skala %}
+      <div class="legenda-etap{% if loop.index == etap %} biezacy{% endif %}"><dt>{{ kwadraty(loop.index, skala | length) }}<span>{{ e.nazwa }}<span class="sr-only">, etap {{ loop.index }} z {{ skala | length }}</span></span></dt><dd>{{ e.opis }}</dd></div>
+      {%- endfor %}
+    </dl>
+  </div>
+</details>
+{%- endif %}
+</div>
 {%- endif -%}

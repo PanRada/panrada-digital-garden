@@ -123,7 +123,7 @@ Image.concurrency = 2;
 
 // Image generation is started fire-and-forget during transforms (the markup
 // only needs statsSync), but every pending job is awaited in the
-// eleventy.after hook below so the build doesn't linger — or get killed —
+// eleventy.after hook below so the build doesn't linger, or get killed,
 // doing invisible work after Eleventy reports completion.
 const pendingImageJobs = [];
 

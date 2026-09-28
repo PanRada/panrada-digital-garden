@@ -22,7 +22,7 @@ module.exports = async (data) => {
   }
 
   // Logo height override. A bare number means pixels; any other value must
-  // be a simple CSS length (e.g. "3rem") — anything else is ignored so the
+  // be a simple CSS length (e.g. "3rem"). Anything else is ignored so the
   // env value can't inject arbitrary CSS.
   let logoHeight = (process.env.LOGO_HEIGHT || "").trim();
   if (/^\d+(\.\d+)?$/.test(logoHeight)) {

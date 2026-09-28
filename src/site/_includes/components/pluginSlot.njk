@@ -6,7 +6,7 @@
 
   Slot templates are copies synced into _includes/plugins/ by the plugin
   loader, so they receive the full data cascade like any other include,
-  plus pluginSettings — the rendering plugin's own resolved settings.
+  plus pluginSettings: the rendering plugin's own resolved settings.
   pluginSettings is bound as a loop variable (frame-local) rather than via
   {% set %}: sets inside included templates leak into the includer's
   context in Nunjucks, which would let one plugin's binding clobber

@@ -516,7 +516,7 @@
     }
 
     // Tags rendered by the core (note content, header tags, canvas nodes)
-    // carry no inline handler — one delegated listener opens a tag search
+    // carry no inline handler: one delegated listener opens a tag search
     // for any of them. Tags inside the search UI keep their own handlers.
     document.addEventListener('click', function (e) {
         const tagEl = e.target.closest('a.tag');

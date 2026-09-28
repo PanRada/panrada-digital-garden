@@ -258,19 +258,19 @@ function formatCellValue(value, column, row) {
 			const linkHtml = formatNoteLinkValue(item);
 			if (linkHtml) return linkHtml;
 			if (typeof item === "string" && item.startsWith("/")) {
-				// URL path — render as clickable internal link with title
+				// URL path: render as clickable internal link with title
 				const title = urlTitleMap[item]
 					|| urlTitleMap[item.replace(/\/$/, "") + "/"]
 					|| null;
 				if (title) {
 					return `<a href="${escapeHtml(item)}" class="internal-link">${escapeHtml(String(title))}</a>`;
 				}
-				// Unresolved link — render as dead link
+				// Unresolved link: render as dead link
 				const slug = item.replace(/^\/|\/$/g, "").split("/").pop() || item;
 				return `<a href="/404" class="internal-link is-unresolved">${escapeHtml(decodeURIComponent(slug))}</a>`;
 			}
 			if (typeof item === "string" && !item.startsWith("/") && item.includes("/")) {
-				// Non-URL path with slashes (e.g. raw wikilink stem like "04 - PERMANENT/Note Name") — dead link
+				// Non-URL path with slashes (e.g. raw wikilink stem like "04 - PERMANENT/Note Name"): dead link
 				const slug = item.split("/").pop().replace(/\.md$/, "") || item;
 				return `<a href="/404" class="internal-link is-unresolved">${escapeHtml(slug)}</a>`;
 			}
@@ -287,7 +287,7 @@ function formatCellValue(value, column, row) {
 		if (linkHtml) return linkHtml;
 	}
 
-	// Render ISO dates using the same pattern as the existing site —
+	// Render ISO dates using the same pattern as the existing site:
 	// a <span class="human-date"> that Luxon formats client-side using
 	// the user's configured TIMESTAMP_FORMAT setting.
 	if (typeof value === "string" && isISODate(value)) {
@@ -313,7 +313,7 @@ function formatCellValue(value, column, row) {
  * Build a group header block for cards/list grouped views.
  */
 function buildGroupHeader(group) {
-	return `<div class="obsidian-base-group-header-block"><span class="obsidian-base-group-label">${escapeHtml(String(group.key || "—"))}</span> <span class="obsidian-base-group-count">${group.rows.length}</span></div>`;
+	return `<div class="obsidian-base-group-header-block"><span class="obsidian-base-group-label">${escapeHtml(String(group.key || "-"))}</span> <span class="obsidian-base-group-count">${group.rows.length}</span></div>`;
 }
 
 // --- View renderers ---
@@ -338,7 +338,7 @@ function renderTable(view, properties) {
 		html += "</tr></thead><tbody>";
 		for (const group of groups) {
 			// Group header row spanning all columns
-			html += `<tr class="obsidian-base-group-row"><td colspan="${columns.length}"><span class="obsidian-base-group-label">${escapeHtml(String(group.key || "—"))}</span> <span class="obsidian-base-group-count">${group.rows.length}</span></td></tr>`;
+			html += `<tr class="obsidian-base-group-row"><td colspan="${columns.length}"><span class="obsidian-base-group-label">${escapeHtml(String(group.key || "-"))}</span> <span class="obsidian-base-group-count">${group.rows.length}</span></td></tr>`;
 			for (const row of group.rows) {
 				html += "<tr>";
 				for (const col of columns) {
@@ -529,7 +529,7 @@ function buildList(rows, columns, properties) {
 		for (const col of columns) {
 			parts.push(formatCellValue(getCellValue(row, col), col, row));
 		}
-		html += `<li>${parts.join(" — ")}</li>`;
+		html += `<li>${parts.join(", ")}</li>`;
 	}
 	html += "</ul>";
 	return html;
@@ -593,7 +593,7 @@ function renderViews(queryResult, allNotes, options) {
 		}
 	});
 
-	// Single view — no dropdown, but show toolbar with name and count
+	// Single view: no dropdown, but show toolbar with name and count
 	if (views.length === 1) {
 		const view = views[0];
 		const rowCount = view.rows ? view.rows.length : 0;

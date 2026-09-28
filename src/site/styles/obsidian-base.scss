@@ -2154,7 +2154,7 @@ body {
   --dialog-width: 560px;
   --dialog-max-width: 80vw;
   --dialog-max-height: 85vh;
-  /* Dividers — between panes */
+  /* Dividers: between panes */
   --divider-color: var(--background-modifier-border);
   --divider-color-hover: var(--interactive-accent);
   --divider-width: 1px;
@@ -13584,7 +13584,7 @@ body:not(.is-phone) .base-toolbar-groupby-item {
   position: relative;
 }
 .bases-cards-line:empty:before {
-  content: "\2014";
+  content: "-";
   color: var(--text-faint);
 }
 .bases-cards-line .metadata-input-text {
@@ -13598,7 +13598,7 @@ body:not(.is-phone) .base-toolbar-groupby-item {
   flex-wrap: nowrap;
 }
 .bases-cards-line .value-list-container:empty:before {
-  content: "—";
+  content: "-";
   color: var(--text-faint);
 }
 .bases-view[data-view-type="list"] {

@@ -8,7 +8,7 @@
     try {
       date = el.getAttribute('data-date') || el.innerText
       // A value with no time component (e.g. "1707-04-17") gets the
-      // date-only format — the timestamp format would show it as
+      // date-only format. The timestamp format would show it as
       // "Apr 17, 1707 12:00 AM"
       format = /^\d{4}-\d{2}-\d{2}$/.test(date.trim()) ? DATE_FORMAT : TIMESTAMP_FORMAT
       parsed_date = luxon.DateTime.fromISO(date)

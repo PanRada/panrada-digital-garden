@@ -211,9 +211,10 @@ body.backlinks-note-icon .backlink[data-note-icon]::before {
   display: none;
 }
 
-// Listy: półpauza, jak w polskim składzie; numery krojem technicznym.
+// Listy: znacznikiem jest łącznik, bo strona nie używa pauzy ani półpauzy.
+// Numery krojem technicznym.
 body .content ul {
-  list-style-type: "–  ";
+  list-style-type: "-  ";
   padding-inline-start: 1.3em;
   margin: 0 0 1em;
 }
@@ -439,13 +440,18 @@ body .header-tags .tag {
 // Tabliczka rysunkowa pod tytułem
 // ---------------------------------------------------------------------------
 
+// Tabliczka i legenda pod nią to jeden blok, więc odstępy ma cały blok.
+body .metryczka {
+  margin: 22px 0 40px;
+}
+
 // Siatkę rysuje tło: pola mają kolor papieru, a 1 px przerwy między nimi to tusz.
 body .tabliczka {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: minmax(0, 1fr);
   gap: 1px;
-  margin: 22px 0 40px;
+  margin: 0;
   padding: 0;
   background: var(--pk-tusz);
   border: 1.5px solid var(--pk-tusz);
@@ -478,8 +484,8 @@ body .tabliczka dd {
   color: var(--pk-tusz);
 }
 
-// Etap wzrostu notatki: szkic, kiełek, dojrzała
-body .tabliczka .etapy {
+// Etap wzrostu notatki: szkic, kiełek, dojrzała (w tabliczce i w legendzie)
+body .metryczka .etapy {
   display: inline-flex;
   gap: 3px;
 
@@ -504,6 +510,106 @@ body .tabliczka .etapy {
   body .tabliczka .pole:last-child:nth-child(odd) {
     grid-column: span 2;
   }
+}
+
+// Legenda dojrzałości: wiersz doklejony pod tabliczką, rozwijany jak details.
+body .legenda {
+  border: 1.5px solid var(--pk-tusz);
+  border-top: 0;
+  background: var(--pk-papier);
+  font-family: var(--pk-tech);
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--pk-grafit);
+}
+
+body .legenda summary {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px 7px;
+  font-size: 12px;
+  font-weight: 450;
+  cursor: pointer;
+  list-style: none;
+}
+
+body .legenda summary::-webkit-details-marker {
+  display: none;
+}
+
+// Trójkąt z obramowania: ostry w każdym kroju, obraca się po rozwinięciu.
+body .legenda summary::before {
+  content: "";
+  flex: none;
+  border-left: 5px solid currentColor;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  transition: transform 0.15s;
+}
+
+body .legenda[open] summary::before {
+  transform: rotate(90deg);
+}
+
+body .legenda summary:hover {
+  color: var(--pk-tusz);
+}
+
+body .legenda summary:focus-visible {
+  outline-offset: -3px;
+}
+
+body .legenda-tresc {
+  padding: 2px 12px 12px;
+}
+
+body .legenda-tresc p {
+  margin: 0 0 10px;
+}
+
+body .legenda-skala {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+}
+
+body .legenda-etap {
+  display: grid;
+  grid-template-columns: 8.5em minmax(0, 1fr);
+  align-items: start;
+  gap: 10px;
+}
+
+body .legenda-etap dt {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 650;
+  color: var(--pk-tusz);
+}
+
+body .legenda-etap dd {
+  margin: 0;
+}
+
+// Etap tej notatki zakreślony jak ==tekst== w treści.
+body .legenda-etap.biezacy dt > span:last-child {
+  background: var(--pk-zakreslacz);
+  padding: 0 0.2em;
+}
+
+// Tekst tylko dla czytników ekranu: widoczny stan pokazują kwadraty.
+body .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 // ---------------------------------------------------------------------------

@@ -5,7 +5,7 @@
  * by suffix matching against the published notes.
  */
 
-// Index cached per notes array — the same array is reused across every
+// Index cached per notes array: the same array is reused across every
 // base block in a build.
 const indexCache = new WeakMap();
 
