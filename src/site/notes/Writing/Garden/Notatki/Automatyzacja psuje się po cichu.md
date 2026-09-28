@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"Notatki/Automatyzacja psuje się po cichu.md","permalink":"/notatki/automatyzacja-psuje-sie-po-cichu/","noteIcon":"","created":"2026-09-25","updated":"2026-09-25","dg-note-properties":{"status":"kiełek","created":"2026-09-25","updated":"2026-09-25","zrodla":["[[Development/PanRada/_index]]"],"medium":"https://medium.com/@PanRada/automatyzacja-psuje-si%C4%99-po-cichu-a4a2c1b29862"}}
+{"dg-publish":true,"dg-path":"Notatki/Automatyzacja psuje się po cichu.md","permalink":"/notatki/automatyzacja-psuje-sie-po-cichu/","noteIcon":"","created":"2026-09-25","updated":"2026-09-25","dg-note-properties":{"status":"dojrzała","created":"2026-09-25","updated":"2026-09-25","zrodla":["[[Development/PanRada/_index]]"],"medium":"https://medium.com/@PanRada/automatyzacja-psuje-si%C4%99-po-cichu-a4a2c1b29862"}}
 ---
 
 Strona działała. Domena opłacona, certyfikat ważny, wszystko się ładowało. Tylko że od prawie dwóch lat nic się na niej nie pojawiło. I długo nie wiedziałem dlaczego.
