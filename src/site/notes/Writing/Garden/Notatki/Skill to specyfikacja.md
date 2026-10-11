@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"Notatki/Skill to specyfikacja.md","permalink":"/notatki/skill-to-specyfikacja/","noteIcon":"","created":"2026-10-06","updated":"2026-10-06","dg-note-properties":{"status":"kiełek","created":"2026-10-06","updated":"2026-10-06","zrodla":null,"medium":null}}
+{"dg-publish":true,"dg-path":"Notatki/Skill to specyfikacja.md","permalink":"/notatki/skill-to-specyfikacja/","noteIcon":"","created":"2026-10-06","updated":"2026-10-11","dg-note-properties":{"status":"kiełek","created":"2026-10-06","updated":"2026-10-11","zrodla":null,"medium":null}}
 ---
 
 W skanerze, który co miesiąc przegląda moje notatki, jest linijka wyglądająca na zbędną. Zanim tekst trafi do normalizacji Unicode, zamienia „ł” na „l”. Po co, skoro normalizacja i tak rozkłada polskie znaki na literę i ogonek?
@@ -23,7 +23,7 @@ Między nimi obowiązują trzy zasady:
 
 *Czerwona ścieżka to skrót, który kusi: poprawka trafia tylko do instalacji, a kanon, który rozstrzyga spory, zostaje w tyle.*
 
-Kanon synchronizuje się razem z notatkami, a instalacje leżą w katalogu domowym. Mam jeszcze skille bez kanonu. Jeśli stracę ten katalog, przepadną razem z powodami, dla których działały tak, a nie inaczej.
+Kanon synchronizuje się razem z notatkami, a instalacje leżą w katalogu domowym. Skill bez kanonu przepadłby po utracie tego katalogu razem z powodami, dla których działał tak, a nie inaczej. Ostatni taki skill już usunąłem.
 
 ## Opis, który miał rację
 
