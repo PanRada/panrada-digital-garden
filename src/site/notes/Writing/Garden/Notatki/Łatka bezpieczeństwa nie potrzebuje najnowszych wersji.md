@@ -2,7 +2,7 @@
 {"dg-publish":true,"dg-path":"Notatki/Łatka bezpieczeństwa nie potrzebuje najnowszych wersji.md","permalink":"/notatki/latka-bezpieczenstwa-nie-potrzebuje-najnowszych-wersji/","noteIcon":"","created":"2026-11-14","updated":"2026-11-14","dg-note-properties":{"status":"kiełek","created":"2026-11-14","updated":"2026-11-14","zrodla":null,"medium":null}}
 ---
 
-W połowie listopada Next.js dostał poprawki krytycznych podatności, m.in. zdalnego wykonania kodu przez optymalizację obrazków i odmowy usługi przez Server Actions. Ten framework siedzi w kilku moich projektach, więc tego samego dnia każdy z nich dostał łatkę.
+W połowie listopada Next.js dostał poprawki krytycznych podatności, między innymi zdalnego wykonania kodu przez optymalizację obrazków i odmowy usługi przez Server Actions. Ten framework siedzi w kilku moich projektach, więc tego samego dnia każdy z nich dostał łatkę.
 
 Przy takiej łatce odruch jest jeden: zaktualizować wszystko, co się da, i mieć spokój. `npm audit fix --force`, świeży lockfile, zielony audyt. Właśnie tego odruchu pilnowałem najbardziej.
 
